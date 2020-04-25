@@ -1,7 +1,6 @@
 import tornado.web
-
 import tornado.ioloop
-
+import os
 import pdf
 
 class UploadHandler(tornado.web.RequestHandler):
@@ -18,7 +17,8 @@ class UploadHandler(tornado.web.RequestHandler):
 			input_keys[key]='N/A'
 
 		type_text = self.get_body_argument('type')
-
+		if not os.path.exists('input'):
+    		os.makedirs('input')
 		for f in files:
 			fh = open(f"input/{f.filename}","wb")
 			fh.write(f.body)
